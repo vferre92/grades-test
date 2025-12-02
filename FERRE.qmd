@@ -17,7 +17,6 @@ library(ggplot2)
 library(vroom)
 library(gt)
 library(readr)
-install.packages("lubridate")
 library(lubridate)
 
 ```
@@ -68,7 +67,7 @@ students <- students |>
   mutate(sex = factor(sex)) 
 print(class(students$sex))
 ```
-The variable "sex" is now of class " `{r} print(class(students$sex))` "*
+The variable "sex" is now of class " `{r} print(class(students$sex))` "
 
 ####  Question 4
 
@@ -166,5 +165,16 @@ oldest_students |>
 
 ```
 
+### 3 Simple grade analysis
 
 #### Question 10
+
+```{r}
+nb_grades <- grades |>
+  filter(!is.na(grade)) |>
+  nrow()
+```
+
+Le nombre de notes, sans compter les missings values, est de `r nb_grades`.
+
+
