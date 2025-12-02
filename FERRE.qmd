@@ -3,6 +3,9 @@ title: "FERRE"
 format: html
 ---
 
+Link to the github repository : https://github.com/vferre92/grades-test.git
+
+
 ```{r}
 
 #| false
@@ -115,12 +118,12 @@ students |>
 
 ```{r}
 students <- students |>
-  mutate(Age = round(time_length(today() - birth_date, unit = "year")))
+  mutate(age = round(time_length(today() - birth_date, unit = "year")))
 
 students |>
-  ggplot(aes(x = Age)) +
+  ggplot(aes(x = age)) +
   geom_histogram(binwidth = 1, fill = "lightblue", color = "darkblue") +
-  labs(title = "Distribution of Students' Age (Count)", x = "Age", y = "Count of Students") +
+  labs(title = "Distribution of Students' age (Count)", x = "age", y = "Count of Students") +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
@@ -128,19 +131,40 @@ students |>
 
 ```{r}
 students <- students |>
-  mutate(Age = round(time_length(today() - birth_date, unit = "year")))
+  mutate(age = round(time_length(today() - birth_date, unit = "year")))
 
 median_age_by_group <- students |>
   group_by(group) |>
-  summarise(Median_Age = median(Age, na.rm = TRUE)) |>
+  summarise(Median_age = median(age, na.rm = TRUE)) |>
   ungroup() |>
-  mutate(Median_Age = round(Median_Age))
+  mutate(Median_age = round(Median_age))
 
 median_age_by_group |>
   gt::gt() |>
   tab_header(title = "Median Age of Students by Group") |>
-  cols_label(group = "Group ID", Median_Age = "Median Age") |>
-  fmt_number(columns = Median_Age, decimals = 0)
+  cols_label(group = "Group ID", Median_age = "Median Age") |>
+  fmt_number(columns = Median_age, decimals = 0)
 ```
 
 #### Question 9
+
+```{r}
+
+oldest_students <- students |>
+  group_by(group) |>
+  slice_max(age, n = 1) |>
+  ungroup() |>
+  select(id, sex, age, group) |>
+  arrange(desc(age))
+
+oldest_students |>
+  gt() |>
+  tab_header(
+    title = "Oldest Student in Each Group") |>
+  cols_label(id = "Student ID",sex = "Gender",age = "Age (Years)", group = "Group ID") |>
+  fmt_number(columns = age, decimals = 0)
+
+
+
+```
+
