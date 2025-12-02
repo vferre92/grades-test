@@ -202,3 +202,25 @@ grades_courses |>
 
 ```
 
+#### Question 12
+
+```{r}
+
+grades_courses |>
+  filter(!is.na(grade)) |>
+  ggplot(aes(x = grade)) +
+  geom_boxplot(fill = "lightblue", color = "darkblue") +
+  facet_wrap(vars(trimester)) +
+  labs(title = "Distribution of Grades by Trimester",x = "Grade",y = "Density") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+###  4 Attendance analysis
+
+#### Question 13
+
+```{r}
+
+```
+
