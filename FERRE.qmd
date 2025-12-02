@@ -329,5 +329,41 @@ grades_specific_course |>
 
 #### Question 19
 
+```{r}
+grades_avg_per_course <- grades_courses_students |>
+  filter(!is.na(grade)) |>
+  group_by(id, group, course) |>
+  summarise(Avg_Grade = mean(grade, na.rm = TRUE),.groups = "drop") |>
+  ungroup()
 
+grades_wide_avg <- grades_avg_per_course |>
+  pivot_wider(names_from = course,values_from = Avg_Grade)
+
+```
+
+```{r}
+grades_avg_per_course <- grades_courses_students |>
+  filter(!is.na(grade)) |>
+  group_by(id, group, course) |>
+  summarise(
+    Avg_Grade = mean(grade, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  ungroup()
+
+grades_wide_avg <- grades_avg_per_course |>
+  pivot_wider(
+    names_from = course,
+    values_from = Avg_Grade
+  )
+```
+
+```{r}
+grades_wide_avg |>
+  select(id, group, everything()) |>
+  slice_head(n = 5) |>
+  gt() |>
+  fmt_number(columns = -c(id, group),decimals = 2) |>
+  tab_options(column_labels.font.size = "small")
+```
 
