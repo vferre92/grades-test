@@ -414,3 +414,27 @@ correlation_by_group |>
 
 ```
 
+#### Question 22
+
+```{r}
+most_correlated_group_info <- correlation_by_group |>
+  slice_max(abs(Correlation_Coefficient), n = 1, with_ties = FALSE)
+
+target_group <- most_correlated_group_info$group
+target_correlation <- most_correlated_group_info$Correlation_Coefficient
+
+print(paste("Groupe cible (corrélation la plus forte) :", target_group))
+print(paste("Coefficient de corrélation (r) :", round(target_correlation, 3)))
+```
+
+```{r}
+grades_wide_avg |>
+  filter(group == target_group) |>
+  ggplot(aes(x = `Survival Skills and Wilderness Medicine`,y = `Mechanical Engineering and Vehicle Repair`)) +
+  geom_point(color = "steelblue", size = 3, alpha = 0.8) +
+  geom_smooth(method = "lm",formula = y ~ x,color = "red",linewidth = 1,se = FALSE) +
+  labs(title = paste("Corrélation des Notes (Groupe", target_group, ")"),subtitle = paste("r =", round(target_correlation, 3)),x = "Moyenne en Survival Skills and Wilderness Medicine",y = "Moyenne en Mechanical Engineering and Vehicle Repair") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+We have a clear negative correlation between the two average of the two courses.
