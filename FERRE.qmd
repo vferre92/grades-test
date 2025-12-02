@@ -221,6 +221,24 @@ grades_courses |>
 #### Question 13
 
 ```{r}
+grades_courses_students <- grades_courses |>
+  inner_join(students |> select(id, group, sex), by = "id")
+
+grades_per_student <- grades_courses_students |>
+  group_by(id, group, sex) |>
+  filter(!is.na(grade)) |>
+  summarise(nb_grades = n(), .groups = "drop") |>
+  ungroup()
+```
+
+```{r}
+grades_per_student |>
+  slice_head(n = 10) |>
+  gt() |>
+  tab_header(
+    title = "Extract of Grades per Student") |>
+  cols_label(id = "Student ID",group = "Group ID",sex = "Gender",nb_grades = "Number of Grades")
 
 ```
 
+#### Question 14
