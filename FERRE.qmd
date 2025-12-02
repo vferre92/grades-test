@@ -227,8 +227,12 @@ grades_courses_students <- grades_courses |>
 grades_per_student <- grades_courses_students |>
   group_by(id, group, sex) |>
   filter(!is.na(grade)) |>
-  summarise(nb_grades = n(), .groups = "drop") |>
+  summarise(nb_grades = n(),Min_Grade = min(grade, na.rm = TRUE),Max_Grade = max(grade, na.rm = TRUE),.groups = "drop") |>
   ungroup()
+
+grades_per_student |>
+  summarise(Minimum = min(nb_grades),Maximum = max(nb_grades),Average = mean(nb_grades),Median = median(nb_grades)) |>
+  gt::gt()
 ```
 
 ```{r}
@@ -237,8 +241,21 @@ grades_per_student |>
   gt() |>
   tab_header(
     title = "Extract of Grades per Student") |>
-  cols_label(id = "Student ID",group = "Group ID",sex = "Gender",nb_grades = "Number of Grades")
+  cols_label(id = "Student ID",group = "Group ID",sex = "Gender",nb_grades = "Number of Grades",Min_Grade = "Min Grade",Max_Grade = "Max Grade")
 
 ```
 
 #### Question 14
+
+```{r}
+grades_per_student |>
+  ggplot(aes(x = sex, y = nb_grades, fill = sex)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1, color = "black", fill = "white", alpha = 0.5) +
+  labs(title = "Distribution of Number of Grades by Gender",x = "gender",y = "nb of grades",fill = "gender"
+  ) +
+  scale_fill_manual(values = c("F" = "lightgreen", "M" = "lightsalmon")) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+#### Question 15
