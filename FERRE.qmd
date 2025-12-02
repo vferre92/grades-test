@@ -177,4 +177,28 @@ nb_grades <- grades |>
 
 Le nombre de notes, sans compter les missings values, est de `r nb_grades`.
 
+#### Question 11
+
+```{r}
+
+grades_courses <- grades |>
+  inner_join(courses, by = "course_id")
+
+```
+
+```{r}
+
+grades_courses |>
+  inner_join(students |> select(id, group), by = "id") |>
+  filter(course == "Post-Apocalyptic History and Archaeology") |>
+  group_by(group) |>
+  summarise(avg_grade = mean(grade, na.rm = TRUE)) |>
+  ungroup() |>
+  ggplot(aes(x = factor(group), y = avg_grade)) +
+  geom_col(fill = "steelblue") +
+  labs(title = "Average Grade in Post-Apocalyptic History and Archaeology by Group",x = "Group ID",y = "Average Grade") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
 
