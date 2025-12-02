@@ -36,3 +36,30 @@ courses |>
 ```
 
 
+###  1.2 Students
+
+####  Question 3
+
+```{r}
+students <- vroom(here("data", "students.csv"))
+View(students)
+
+```
+```{r}
+print(class(students$birth_date)) 
+```
+The variable "birth_date" is of class " `{r} print(class(students$birth_date))` "
+
+```{r}
+print(class(students$sex)) 
+```
+
+The variable "sex" is of class " `{r} print(class(students$sex))` "
+Transformons la variable "sex" en *factor* :
+
+```{r}
+students <- students |>
+  mutate(sex = factor(sex)) 
+print(class(students$sex))
+```
+The variable "sex" is now of class " `{r} print(class(students$sex))` "
