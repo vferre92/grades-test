@@ -500,3 +500,38 @@ final_grades_df |>
 
 ```
 
+#### Question 25 
+
+```{r}
+final_grades_df |>
+  ggplot(aes(x = factor(group), y = final_grade, fill = sex)) +
+  geom_boxplot(position = position_dodge(width = 0.8)) +
+  labs(
+    title = "Note Finale par Groupe et par Genre",
+    x = "Group ID",
+    y = "Note Finale Moyenne",
+    fill = "Genre"
+  ) +
+  theme_bw() +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
+Cela fonctionne, mais ce n'est pas nécéssairement le plus lisible. Utilison facet_wrap et geom.density pour avoir une meilleure visualisation (à mon sens)
+
+```{r}
+final_grades_df |>
+  ggplot(aes(x = final_grade, fill = sex)) +
+  geom_density(alpha = 0.5, position = "identity") +
+  facet_wrap(~group) +
+  labs(
+    title = "Densité de la Note Finale par Groupe et par Genre",
+    x = "Note Finale Moyenne",
+    y = "Densité",
+    fill = "Genre"
+  ) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
