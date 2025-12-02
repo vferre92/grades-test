@@ -259,3 +259,23 @@ grades_per_student |>
   theme(plot.title = element_text(hjust = 0.5))
 ```
 #### Question 15
+
+```{r}
+
+grades_specific_course <- grades_courses_students |>
+  filter(course == "Community Building and Social Organization") |>
+  filter(!is.na(grade)) |>
+  group_by(id, group, sex) |>
+  summarise(nb_grades_course = n(),.groups = "drop") |>
+  ungroup()
+
+grades_specific_course |>
+  slice_head(n = 10) |>
+  gt::gt() |>
+  tab_header(title = "Number of Grades in Community Building and Social Organization") |>
+  cols_label(id = "Student ID",group = "nb_Group",sex = "Gender",nb_grades_course = "Nb Grades")
+
+```
+
+
+
