@@ -125,3 +125,22 @@ students |>
   theme(plot.title = element_text(hjust = 0.5))
 ```
 #### Question 8 
+
+```{r}
+students <- students |>
+  mutate(Age = round(time_length(today() - birth_date, unit = "year")))
+
+median_age_by_group <- students |>
+  group_by(group) |>
+  summarise(Median_Age = median(Age, na.rm = TRUE)) |>
+  ungroup() |>
+  mutate(Median_Age = round(Median_Age))
+
+median_age_by_group |>
+  gt::gt() |>
+  tab_header(title = "Median Age of Students by Group") |>
+  cols_label(group = "Group ID", Median_Age = "Median Age") |>
+  fmt_number(columns = Median_Age, decimals = 0)
+```
+
+#### Question 9
