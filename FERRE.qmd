@@ -278,4 +278,20 @@ grades_specific_course |>
 ```
 
 
+### Question 16
+
+```{r}
+grades_specific_course |>
+  group_by(nb_grades_course) |>
+  summarise(nb_students = n(),.groups = "drop") |>
+  ggplot(aes(x = nb_grades_course, y = nb_students)) +
+  geom_line(linewidth = 1, color = "darkblue") +
+  geom_point(size = 3, color = "darkblue") +
+  labs(title = "Distribution of Number of Grades per Student in Specific Course",x = "Number of Grades (nb_grades_course)",y = "Number of Students (Count)") +
+  geom_text(aes(label = nb_students), vjust = -1) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+Le dernier chiffre est malheureusement un peu tronqué, je ne prendrais pas le temps de régler ceci (c'est 638).
+
 
