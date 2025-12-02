@@ -367,3 +367,31 @@ grades_wide_avg |>
   tab_options(column_labels.font.size = "small")
 ```
 
+#### Question 20
+
+```{r}
+
+grades_wide_avg |>
+  ggplot(aes(x = `Art and Expression in a Post-Apocalyptic World`,y = `Survival Skills and Wilderness Medicine`)) +
+  geom_point(color = "darkred", size = 2, alpha = 0.7) +
+  geom_smooth(method = "lm", formula = y ~ x, color = "blue", se = FALSE) +
+  labs(title = "Relation entre la Note Moyenne en Art et en Survie",x = "Moyenne en Art and Expression in a Post-Apocalyptic World",y = "Moyenne en Survival Skills and Wilderness Medicine") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+Mais ce n'est pas particulièrement visible. Utilisons en alternative geom_hex pour mettre mieux en relief les concentrations d'étudiant par rapport aux différentes moyennes dont nous souhaitons observer une corrélation.
+
+```{r}
+
+grades_wide_avg |>
+  ggplot(aes(x = `Art and Expression in a Post-Apocalyptic World`,y = `Survival Skills and Wilderness Medicine`)) +
+  geom_hex(bins = 15) +
+  geom_smooth(method = "lm", formula = y ~ x, color = "red", linewidth = 1,se = FALSE) +
+  scale_fill_continuous(type = "viridis") + # Améliore la palette de couleurs
+  labs(title = "Densité des Notes (Hexagones) : Art vs. Survie",x = "Moyenne en Art and Expression in a Post-Apocalyptic World",y = "Moyenne en Survival Skills and Wilderness Medicine",fill = "Nombre d'Étudiants") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+Nous pouvons observer une certaine logique dans ce résultat : une majorité d'étudiant ont des moyennes cohérente entre les différentes doublettes de cours. Exemple : environ 25 étudiants ont en moyenne environ 13 dans la doublette en axe y, et environ 13-14 dans l'autre.
