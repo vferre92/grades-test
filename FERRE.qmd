@@ -159,12 +159,12 @@ oldest_students <- students |>
 
 oldest_students |>
   gt() |>
-  tab_header(
-    title = "Oldest Student in Each Group") |>
-  cols_label(id = "Student ID",sex = "Gender",age = "Age (Years)", group = "Group ID") |>
+  tab_header(title = "Oldest Student in Each Group") |>
+  cols_label(id = "Student ID",sex = "Gender",age = "Age", group = "nb_Group") |>
   fmt_number(columns = age, decimals = 0)
-
 
 
 ```
 
+
+#### Question 10
