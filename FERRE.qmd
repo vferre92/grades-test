@@ -395,3 +395,22 @@ grades_wide_avg |>
 
 ```
 Nous pouvons observer une certaine logique dans ce résultat : une majorité d'étudiant ont des moyennes cohérente entre les différentes doublettes de cours. Exemple : environ 25 étudiants ont en moyenne environ 13 dans la doublette en axe y, et environ 13-14 dans l'autre.
+
+
+#### Question 21
+
+```{r}
+
+correlation_by_group <- grades_wide_avg |>
+  group_by(group) |>
+  summarise(Correlation_Coefficient = cor(`Mechanical Engineering and Vehicle Repair`,`Survival Skills and Wilderness Medicine`,use = "pairwise.complete.obs"),.groups = "drop") |>
+  arrange(desc(abs(Correlation_Coefficient)))
+
+correlation_by_group |>
+  gt() |>
+  cols_label(group = "Group ID",Correlation_Coefficient = "Coefficient de Corrélation") |>
+  fmt_number(columns = Correlation_Coefficient,decimals = 3)
+
+
+```
+
