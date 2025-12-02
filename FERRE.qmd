@@ -13,6 +13,7 @@ library(tidyr)
 library(ggplot2)
 library(vroom)
 library(gt)
+library(readr)
 
 ```
 
@@ -62,4 +63,21 @@ students <- students |>
   mutate(sex = factor(sex)) 
 print(class(students$sex))
 ```
-The variable "sex" is now of class " `{r} print(class(students$sex))` "
+The variable "sex" is now of class " `{r} print(class(students$sex))` "*
+
+####  Question 4
+
+```{r}
+
+grades <- vroom(here("data", "grades.csv"))
+View(grades)
+
+```
+Problème : le délimitateur est un '.' au lieu de ',' ; et les missing values ne sont pas encodées en NA. Changeons cela :
+
+```{r}
+
+grades <- read_delim("grades.csv", delim = ":", na = "unknown")
+
+```
+
