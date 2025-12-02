@@ -31,7 +31,7 @@ View(courses)
 courses |>
   arrange(course) |>
   gt::gt() |>
-  tab_header(title = "Course Data")
+  tab_header(title = "Courses Data")
 
 ```
 
