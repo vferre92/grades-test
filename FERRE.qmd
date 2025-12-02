@@ -25,5 +25,14 @@ courses <- vroom(here("data", "courses.csv"))
 View(courses)
 
 ```
+### Question 2 :
+
+```{r}
+courses |>
+  arrange(course) |>
+  gt::gt() |>
+  tab_header(title = "Course Data")
+
+```
 
 
