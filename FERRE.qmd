@@ -3,3 +3,27 @@ title: "FERRE"
 format: html
 ---
 
+```{r}
+
+#| false
+here::i_am("grades-test.Rproj")
+library(here)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(vroom)
+library(gt)
+
+```
+
+### 1.1 Study organisation
+
+#### Question 1 :  Load the course description file.
+
+```{r}
+courses <- vroom(here("data", "courses.csv"))
+View(courses)
+
+```
+
+
