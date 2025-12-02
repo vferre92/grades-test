@@ -479,3 +479,24 @@ final_grades_df |>
 ```
 
 #### Question 24 
+
+```{r}
+
+final_grades_df |>
+  ggplot(aes(x = factor(group), y = final_grade, fill = factor(group))) +
+  geom_boxplot() +
+  labs(
+    title = "Comparaison de la Note Finale par Groupe",
+    x = "Group ID",
+    y = "Note Finale Moyenne",
+    fill = "Group ID"
+  ) +
+  theme_bw() +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "none"
+  )
+
+```
+
