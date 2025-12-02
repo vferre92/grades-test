@@ -108,7 +108,7 @@ students |>
   labs(title = "Gender Balance in Each Group", x = "Group Number", y = "Proportion of Students") +
   scale_fill_manual(values = c("lightgreen", "lightsalmon")) +
   theme_bw() +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5)) 
 
 ```
 #### Question 7 
@@ -119,10 +119,9 @@ students <- students |>
 
 students |>
   ggplot(aes(x = Age)) +
-  geom_histogram(aes(y = after_stat(density)), binwidth = 1, fill = "lightblue", color = "white") +
-  geom_density(bw = "sj", linewidth = 1, color = "darkblue") +
-  labs(title = "Distribution of Students' Age", x = "Age",y = "Density") +
+  geom_histogram(binwidth = 1, fill = "lightblue", color = "darkblue") +
+  labs(title = "Distribution of Students' Age (Count)", x = "Age", y = "Count of Students") +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
-
+#### Question 8 
