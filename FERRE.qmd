@@ -438,3 +438,44 @@ grades_wide_avg |>
   theme(plot.title = element_text(hjust = 0.5))
 ```
 We have a clear negative correlation between the two average of the two courses.
+
+
+#### Question 23
+
+```{r}
+
+grades_only <- grades_wide_avg |>
+  select(-id, -group)
+
+final_grades_calc <- grades_wide_avg |>
+  mutate(
+    final_grade = rowMeans(grades_only, na.rm = TRUE)
+  ) |>
+  select(id, group, final_grade)
+
+final_grades_df <- final_grades_calc |>
+  inner_join(students |> select(id, sex), by = "id") |>
+  arrange(desc(final_grade))
+
+```
+
+```{r}
+final_grades_df |>
+  slice_head(n = 5) |>
+  gt() |>
+  cols_label(
+    id = "ID",
+    group = "Group",
+    sex = "Sex",
+    final_grade = "Final Grade"
+  ) |>
+  fmt_number(
+    columns = final_grade,
+    decimals = 3
+  ) |>
+  tab_header(
+    title = "Top 5 Students by Final Grade"
+  )
+```
+
+#### Question 24 
