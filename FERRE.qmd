@@ -534,4 +534,71 @@ final_grades_df |>
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
+#### Question 26
+
+```{r}
+
+course_trimester_map <- grades_courses_students |>
+  select(course, trimester) |>
+  distinct()
+
+c1_pass <- grades_avg_per_course |>
+  group_by(id) |>
+  summarise(
+    Min_Course_Grade = min(Avg_Grade, na.rm = TRUE),
+    C1_Passed = Min_Course_Grade >= 5,
+    .groups = "drop"
+  ) |>
+  select(id, C1_Passed)
+
+grades_avg_with_trimester <- grades_avg_per_course |>
+  inner_join(course_trimester_map, by = "course")
+
+avg_grade_trimester <- grades_avg_with_trimester |>
+  group_by(id, trimester) |>
+  summarise(
+    Avg_Trimester = mean(Avg_Grade, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+c2_pass <- avg_grade_trimester |>
+  group_by(id) |>
+  summarise(
+    Min_Trimester_Grade = min(Avg_Trimester, na.rm = TRUE),
+    C2_Passed = Min_Trimester_Grade >= 10,
+    .groups = "drop"
+  ) |>
+  select(id, C2_Passed)
+
+pass_conditions_df <- c1_pass |>
+  inner_join(c2_pass, by = "id")
+
+pass_final_df_q26 <- final_grades_df |>
+  inner_join(pass_conditions_df, by = "id") |>
+  mutate(
+    pass = C1_Passed & C2_Passed
+  ) |>
+  select(id, group, sex, final_grade, pass) |>
+  arrange(desc(final_grade))
+
+```
+
+```{r}
+
+pass_final_df_q26 |>
+  slice_head(n = 10) |>
+  gt() |>
+  cols_label(
+    id = "ID",
+    group = "Group",
+    sex = "Sex",
+    final_grade = "Final Grade",
+    pass = "Pass Year"
+  ) |>
+  fmt_number(
+    columns = final_grade,
+    decimals = 3
+  )
+
+```
 
