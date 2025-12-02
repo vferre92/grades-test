@@ -97,3 +97,16 @@ students |>
 ```
 
 #### Question 6
+
+```{r}
+
+students |>
+  ggplot(aes(x = group, fill = sex)) +
+  geom_bar(position = "fill") +
+  labs(title = "Gender Balance in Each Group", x = "Group Number", y = "Proportion of Students") +
+  scale_fill_manual(values = c("lightgreen", "lightsalmon")) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
