@@ -295,3 +295,22 @@ grades_specific_course |>
 Le dernier chiffre est malheureusement un peu tronqué, je ne prendrais pas le temps de régler ceci (c'est 638).
 
 
+#### Question 17
+
+```{r}
+
+grades_specific_course <- grades_specific_course |>
+  mutate(grade_count_category = cut(nb_grades_course, breaks = c(6.5, 7.5, 8.5, 9.5, 10.5),labels = c("7 Grades", "8 Grades", "9 Grades", "10 Grades"),include.lowest = TRUE,right = TRUE))
+
+```
+
+```{r}
+grades_specific_course |>
+  ggplot(aes(x = factor(group), fill = grade_count_category)) +
+  geom_bar(position = "fill") +
+  labs(title = "Proportion de Catégories de Nombre de Notes par Groupe",x = "Group ID",y = "Proportion d'Étudiants",fill = "Nb de Notes Catégories") +
+  scale_fill_manual(values = c("7 Grades" = "#E7B800", "8 Grades" = "#2E9FDF", "9 Grades" = "#00AFBB", "10 Grades" = "#FC4E07")) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),plot.title = element_text(hjust = 0.5))
+```
+#### Question 18
