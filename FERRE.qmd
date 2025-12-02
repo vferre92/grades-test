@@ -314,3 +314,20 @@ grades_specific_course |>
   theme(axis.text.x = element_text(angle = 45, hjust = 1),plot.title = element_text(hjust = 0.5))
 ```
 #### Question 18
+
+```{r}
+grades_specific_course |>
+  ggplot(aes(x = nb_grades_course, fill = sex)) +
+  geom_density(alpha = 0.5, position = "identity") +
+  facet_wrap(vars(group)) +
+  labs(title = "Densité du Nombre de Notes par Groupe et Genre",x = "Nombre de Notes (nb_grades_course) - Discret",y = "Densité",fill = "Genre") +
+  scale_x_continuous(breaks = 7:10) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+### 5 Grade analysis
+
+#### Question 19
+
+
+
